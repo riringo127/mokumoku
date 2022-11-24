@@ -8,6 +8,14 @@
     <%= f.label :content %>
     <%= f.text_area :content, class: 'form-control', rows: 10 %>
   </div>
+  <% if user.woman? %>
+    <div class="mb-3">
+      <div class="form-check">
+        <%= f.label :only_woman, class: "form-check-label" %>
+        <%= f.check_box :only_woman, class: "form-check-input" %>
+      </div>
+    </div>
+  <% end %>
   <div class="mb-3">
     <%= f.label :held_at %>
     <%= f.datetime_field :held_at, class: 'form-control' %>
