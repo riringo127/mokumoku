@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
+  before_action :set_user, only: %i[new create edit show update]
+
   def index
     @q = Event.future.ransack(params[:q])
     @events = @q.result(distinct: true).includes(:bookmarks, :prefecture, user: { avatar_attachment: :blob })
@@ -60,6 +62,10 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:title, :content, :held_at, :prefecture_id, :thumbnail)
+    params.require(:event).permit(:title, :content, :held_at, :prefecture_id, :only_woman, :thumbnail)
+  end
+
+  def set_user
+    @user = current_user
   end
 end
